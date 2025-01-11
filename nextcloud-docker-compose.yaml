@@ -1,5 +1,5 @@
 ---
-version: "3"
+version: "2"
 services:
   nextcloud:
     image: lscr.io/linuxserver/nextcloud:latest
@@ -10,7 +10,7 @@ services:
       # PUID & PGID are used to set user/group IDs.
       - PUID=1000
       - PGID=1000
-      - TZ: Asia/Makassar
+      - TZ= Asia/Makassar
 
     volumes:
       - /home/admintrkj/nextcloud/DATA/AppData/nextcloud/config:/config
