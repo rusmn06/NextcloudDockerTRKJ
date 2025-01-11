@@ -17,7 +17,7 @@ services:
       - /nextcloud/DATA/AppData/nextcloud/data:/data
 
     ports:
-      - 443:443
-      - 80:80
+      - 60889:443
+      - 60883:80
       
     restart: unless-stopped
