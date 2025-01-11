@@ -13,8 +13,8 @@ services:
       - TZ: Asia/Makassar
 
     volumes:
-      - /nextcloud/DATA/AppData/nextcloud/config:/config
-      - /nextcloud/DATA/AppData/nextcloud/data:/data
+      - /home/admintrkj/nextcloud/DATA/AppData/nextcloud/config:/config
+      - /home/admintrkj/nextcloud/DATA/AppData/nextcloud/data:/data
 
     ports:
       - 60889:443
