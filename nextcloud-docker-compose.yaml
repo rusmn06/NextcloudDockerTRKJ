@@ -10,7 +10,7 @@ services:
       # PUID & PGID are used to set user/group IDs.
       - PUID=1000
       - PGID=1000
-      - TZ: ${TZ}
+      - TZ: Asia/Makassar
 
     volumes:
       - /nextcloud/DATA/AppData/nextcloud/config:/config
