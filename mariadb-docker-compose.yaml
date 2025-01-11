@@ -11,7 +11,7 @@ services:
       # PUID & PGID are used to set user/group IDs.
       - PUID=1000
       - PGID=1000
-      - TZ: Asia/Makassar
+      - TZ= Asia/Makassar
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER={MYSQL_USER}
