@@ -19,7 +19,7 @@ services:
       - REMOTE_SQL=
 
     volumes:
-      - /nextcloud/DATA/AppData/nextcloud-mariadb:/config
+      - /home/admintrkj/nextcloud/DATA/AppData/nextcloud-mariadb:/config
       
     ports:
       - 3306:3306
