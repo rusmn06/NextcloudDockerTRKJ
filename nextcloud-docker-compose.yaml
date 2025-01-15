@@ -19,6 +19,5 @@ services:
     ports:
       - 60889:443
       - 60883:80
-    depends_on:
-      - db
+      
     restart: unless-stopped
