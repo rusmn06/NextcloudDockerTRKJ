@@ -1,23 +1,22 @@
----
 version: "2"
 services:
   nextcloud:
     image: lscr.io/linuxserver/nextcloud:latest
-
     container_name: nextcloud
-
     environment:
-      # PUID & PGID are used to set user/group IDs.
       - PUID=1000
       - PGID=1000
-      - TZ= Asia/Makassar
-
+      - TZ=Asia/Makassar
+      - APACHE_DISABLE_REWRITE_IP=1
+      - TRUSTED_PROXIES=${LOCAL_IP}/24,${PUBLIC_IP}
+      - OVERWRITEPROTOCOL=https
+      - NEXTCLOUD_TRUSTED_DOMAINS=${LOCAL_IP},${PUBLIC_IP},trkjdrive.politala.ac.id
     volumes:
       - /home/admintrkj/nextcloud/DATA/AppData/nextcloud/config:/config
       - /home/admintrkj/nextcloud/DATA/AppData/nextcloud/data:/data
-
+      - /home/admintrkj/nextcloud/ssl/cert.pem:/config/keys/cert.pem
+      - /home/admintrkj/nextcloud/ssl/privkey.pem:/config/keys/privkey.pem
     ports:
       - 60889:443
       - 60883:80
-      
     restart: unless-stopped
