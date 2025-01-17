@@ -4,6 +4,7 @@ version: "2"
 services:
   mariadb:
     image: lscr.io/linuxserver/mariadb:latest
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
 
     container_name: mariadb
 
@@ -19,9 +20,6 @@ services:
       - REMOTE_SQL=
 
     volumes:
-      - /home/admintrkj/nextcloud/DATA/AppData/nextcloud-mariadb:/config
-      
-    ports:
-      - 3306:3306
+      - ../nextcloud/DATA/AppData/nextcloud-mariadb:/config
 
     restart: unless-stopped
