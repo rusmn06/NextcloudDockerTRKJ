@@ -11,11 +11,15 @@ services:
       - TRUSTED_PROXIES=${LOCAL_IP}/24,${PUBLIC_IP}
       - OVERWRITEPROTOCOL=https
       - NEXTCLOUD_TRUSTED_DOMAINS=${LOCAL_IP},${PUBLIC_IP},trkjdrive.politala.ac.id
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER={MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - /home/admintrkj/nextcloud/DATA/AppData/nextcloud/config:/config
-      - /home/admintrkj/nextcloud/DATA/AppData/nextcloud/data:/data
-      - /home/admintrkj/nextcloud/ssl/cert.pem:/config/keys/cert.pem
-      - /home/admintrkj/nextcloud/ssl/privkey.pem:/config/keys/privkey.pem
+      - ../nextcloud/DATA/AppData/nextcloud/config:/config
+      - ../nextcloud/DATA/AppData/nextcloud/data:/data
+      #- ../nextcloud/ssl/cert.pem:/config/keys/cert.pem
+      #- ../nextcloud/ssl/privkey.pem:/config/keys/privkey.pem
     ports:
       - 60889:443
       - 60883:80
