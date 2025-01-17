@@ -1,1 +1,29 @@
+version: '2'
 
+services:
+
+  nextcloud:
+    container_name: nextcloud
+    restart: unless-stopped
+    image: nextcloud
+    ports:
+      - 8080:80 #Port change
+    volumes:
+      - /containers/cloud/nextcloud/apps:/var/www/html/apps
+      - /containers/cloud/nextcloud/config:/var/www/html/config
+      - /containers/cloud/nextcloud/data:/var/www/html/data
+    depends_on:
+      - db
+
+  db:
+    container_name: maria-db
+    restart: unless-stopped
+    image: mariadb
+    command: --innodb-read-only-compressed=OFF #Maria-DB fix
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ncdb
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: nextcloud
+    volumes:
+      - /containers/cloud/mariadb:/var/lib/mysql
