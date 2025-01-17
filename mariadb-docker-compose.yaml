@@ -1,5 +1,5 @@
 ---
-version: "2"
+version: "3"
 
 services:
   mariadb:
@@ -20,6 +20,6 @@ services:
       - REMOTE_SQL=
 
     volumes:
-      - ../nextcloud/DATA/AppData/nextcloud-mariadb:/config
+      - /home/admintrkj/nextcloud/DATA/AppData/nextcloud-mariadb:/config
 
     restart: unless-stopped
