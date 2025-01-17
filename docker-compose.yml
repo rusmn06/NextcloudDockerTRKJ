@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     image: nextcloud
     ports:
-      - 8080:80 #Port change
+      - 60883:80
     volumes:
       - /containers/cloud/nextcloud/apps:/var/www/html/apps
       - /containers/cloud/nextcloud/config:/var/www/html/config
