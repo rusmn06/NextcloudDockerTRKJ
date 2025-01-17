@@ -7,6 +7,10 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Asia/Makassar
+      - MYSQL_HOST=mariadb
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - ../nextcloud/DATA/AppData/nextcloud:/config
       - ../nextcloud/DATA/nextcloud/data:/data
