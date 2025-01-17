@@ -1,29 +1,42 @@
 version: '2'
-
 services:
-
   nextcloud:
+    image: lscr.io/linuxserver/nextcloud:latest
     container_name: nextcloud
-    restart: unless-stopped
-    image: nextcloud
-    ports:
-      - 60883:80
-    volumes:
-      - /containers/cloud/nextcloud/apps:/var/www/html/apps
-      - /containers/cloud/nextcloud/config:/var/www/html/config
-      - /containers/cloud/nextcloud/data:/var/www/html/data
-    depends_on:
-      - db
-
-  db:
-    container_name: maria-db
-    restart: unless-stopped
-    image: mariadb
-    command: --innodb-read-only-compressed=OFF #Maria-DB fix
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: ncdb
-      MYSQL_USER: nextcloud
-      MYSQL_PASSWORD: nextcloud
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Makassar
     volumes:
-      - /containers/cloud/mariadb:/var/lib/mysql
+      - ../nextcloud/DATA/AppData/nextcloud:/config
+      - ../nextcloud/DATA/nextcloud/data:/data
+    ports:
+      - 60889:443
+      - 60883:80
+    depends_on:
+      - mariadb
+    networks:
+      - nextcloud_network
+    restart: unless-stopped
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Makassar
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ../nextcloud/DATA/AppData/nextcloud-mariadb:/config
+    networks:
+      - nextcloud_network
+    restart: unless-stopped
+
+networks:
+  nextcloud_network:
+    driver: bridge
