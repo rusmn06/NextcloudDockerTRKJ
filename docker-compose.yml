@@ -1,46 +1,41 @@
-version: '2'
+version: '3'
 services:
   nextcloud:
     image: lscr.io/linuxserver/nextcloud:latest
     container_name: nextcloud
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Asia/Makassar
-      - MYSQL_HOST=mariadb
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-    volumes:
-      - ../nextcloud/DATA/AppData/nextcloud:/config
-      - ../nextcloud/DATA/nextcloud/data:/data
-    ports:
-      - 60889:443
-      - 60883:80
     depends_on:
-      - mariadb
-    networks:
-      - nextcloud_network
-    restart: unless-stopped
-
-  mariadb:
-    image: lscr.io/linuxserver/mariadb:latest
-    container_name: mariadb
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+      - nextcloud-mariadb
+    ports:
+      - "60883:80"
+      - "60889:443"
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Asia/Makassar
+    volumes:
+      - /home/admintrkj/nextcloud/config:/config
+      - /home/admintrkj/nextcloud/data:/data
+    restart: unless-stopped
+    networks:
+      - nextcloud-internal
+
+  nextcloud-mariadb:
+    image: lscr.io/linuxserver/mariadb:11.6.2
+    container_name: nextcloud-mariadb
+    environment:
+      - PUID=1000              
+      - PGID=1000              
+      - TZ=Asia/Makassar        
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - ../nextcloud/DATA/AppData/nextcloud-mariadb:/config
+      - /home/admintrkj/nextcloud/mariadb/config:/config
     networks:
-      - nextcloud_network
+      - nextcloud-internal
     restart: unless-stopped
 
 networks:
-  nextcloud_network:
+  nextcloud-internal:
     driver: bridge
