@@ -1,1 +1,3 @@
 # NextcloudDockerTRKJ
+*miring
+!miring
